@@ -8,7 +8,8 @@ id_correntista INT AUTO_INCREMENT PRIMARY KEY,
 nome VARCHAR(100),
 cpf VARCHAR(15),
 data_nascimento DATE,
-senha_correntista VARCHAR(32)
+senha_correntista VARCHAR(32),
+ativo BOOLEAN DEFAULT TRUE
 
 );
 
@@ -18,6 +19,7 @@ id_conta INT AUTO_INCREMENT PRIMARY KEY,
 numero INT,
 tipo VARCHAR(35),
 senha_conta VARCHAR(32),
+ativa BOOLEAN DEFAULT TRUE,
 
 fk_correntista INT,
 FOREIGN KEY(fk_correntista) REFERENCES Correntista(id_correntista)
