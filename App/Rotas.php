@@ -12,15 +12,23 @@ switch($url)
 
     // Correntista:
 
+    case "/correntista":
+        CorrentistaController::List();
+    break;
+
     case "/correntista/salvar":
-        CorrentistaController::Salvar();
+        CorrentistaController::Register();
     break;
 
-    case "/correntista/entrar":
-        CorrentistaController::Entrar();
+    case "/correntista/apagar":
+        CorrentistaController::Remove();
     break;
 
-    // Conta:
+    case "/correntista/pesquisar":
+        CorrentistaController::Search();
+    break;
+
+    /*// Conta:
 
     case "/conta/pix/transferir":
         ContaController::Transferir();
@@ -55,7 +63,7 @@ switch($url)
     // Transação:
 
     default:
-        http_response_code(404);
+        http_response_code(404);*/
     
 }
 
