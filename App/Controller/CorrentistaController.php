@@ -19,7 +19,7 @@ class CorrentistaController extends Controller
 
             $model = new CorrentistaModel();
 
-            $model->id = $objeto_json->id;
+            $model->id_correntista = $objeto_json->id;
 
             $model->cpf = $objeto_json->cpf;
 

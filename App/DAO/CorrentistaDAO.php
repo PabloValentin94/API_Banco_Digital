@@ -34,7 +34,7 @@ class CorrentistaDAO extends DAO
 
         $stmt->execute();
 
-        $model->id = $this->conexao->lastInsertId();
+        $model->id_correntista = $this->conexao->lastInsertId();
 
         return $model;
 
@@ -44,7 +44,7 @@ class CorrentistaDAO extends DAO
     {
 
         $sql = "UPDATE Correntista SET nome = ?, cpf = ?, data_nascimento = ?, " +
-               "senha_correntista = ?, ativo = ? WHERE nome = ?";
+               "senha_correntista = ?, ativo = ? WHERE id_correntista = ?";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -58,7 +58,7 @@ class CorrentistaDAO extends DAO
 
         $stmt->bindValue(5, $model->ativo);
 
-        $stmt->bindValue(6, $model->id);
+        $stmt->bindValue(6, $model->id_correntista);
 
         return $stmt->execute();
 
@@ -67,7 +67,7 @@ class CorrentistaDAO extends DAO
     public function Delete(int $id) : bool
     {
 
-        $sql = "DELETE FROM Correntista WHERE id = ?";
+        $sql = "DELETE FROM Correntista WHERE id_correntista = ?";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -80,13 +80,13 @@ class CorrentistaDAO extends DAO
     public function Select() : array
     {
 
-        $sql = "SELECT * FROM Correntista ORDER BY id ASC";
+        $sql = "SELECT * FROM Correntista ORDER BY id_correntista ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
         $stmt->execute();
 
-        return $stmt->fetchAll(DAO::FETCH_CLASS, "APP\Model\CorrentistaModel");
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "App\Model\CorrentistaModel");
 
     }
 
@@ -95,13 +95,13 @@ class CorrentistaDAO extends DAO
 
         $parametro = [":filtro" => "%" . $query. "%"];
 
-        $sql = "SELECT * FROM Correntista WHERE nome LIKE :filtro";
+        $sql = "SELECT * FROM Correntista WHERE nome LIKE :filtro ORDER BY id_correntista ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
         $stmt->execute($parametro);
 
-        return $stmt->fetchAll(DAO::FETCH_CLASS, "APP\Model\CorrentistaModel");
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "App\Model\CorrentistaModel");
 
     }
 

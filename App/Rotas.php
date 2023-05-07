@@ -28,21 +28,21 @@ switch($url)
         CorrentistaController::Search();
     break;
 
-    /*// Conta:
+    // Conta:
 
-    case "/conta/pix/transferir":
-        ContaController::Transferir();
+    case "/conta/salvar":
+        ContaController::Register();
     break;
 
-    case "/conta/pix/cobrar":
-        ContaController::Cobrar();
+    case "/conta/apagar":
+        ContaController::Remove();
     break;
 
-    case "/conta/extrato":
-        ContaController::Gerar_Extrato();
+    case "/conta/gerar_extrato":
+        ContaController::Generate_Extract();
     break;
 
-    // Chave Pix:
+    /*// Chave Pix:
 
     case "/chave_pix/criar":
         ChavePixController::Criar();
@@ -61,6 +61,14 @@ switch($url)
     break;
 
     // Transação:
+
+    case "/conta/pix/transferir":
+        ContaController::Transferir();
+    break;
+
+    case "/conta/pix/cobrar":
+        ContaController::Cobrar();
+    break;
 
     default:
         http_response_code(404);*/

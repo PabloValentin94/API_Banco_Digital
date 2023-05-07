@@ -7,14 +7,14 @@ use App\DAO\CorrentistaDAO;
 class CorrentistaModel extends Model
 {
 
-    public $id, $nome, $cpf, $data_nascimento, $senha_correntista, $ativo;
+    public $id_correntista, $nome, $cpf, $data_nascimento, $senha_correntista, $ativo;
 
     public function Save()
     {
 
         $dao = new CorrentistaDAO();
 
-        if($this->id == null)
+        if($this->id_correntista == null)
         {
 
             return $dao->Insert($this);
