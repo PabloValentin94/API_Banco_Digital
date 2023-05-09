@@ -1,6 +1,6 @@
 <?php
 
-define("BASEDIR", dirname(__FILE__, 2));
+define("BASEDIR", dirname(__FILE__, 2) . "/");
 
 $_ENV["database"]["host"] = "localhost:3306";
 $_ENV["database"]["user"] = "root";
