@@ -44,7 +44,7 @@ class ContaDAO extends DAO
     {
 
         $sql = "UPDATE Conta SET numero = ?, tipo = ?, senha_conta = ?, " +
-               "ativa = ?, fk_correntista = ? WHERE id_conta = ?"; 
+               "fk_correntista = ? WHERE id_conta = ?"; 
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -54,17 +54,15 @@ class ContaDAO extends DAO
 
         $stmt->bindValue(3, $model->senha_conta);
 
-        $stmt->bindValue(4, $model->ativa);
+        $stmt->bindValue(4, $model->fk_correntista);
 
-        $stmt->bindValue(5, $model->fk_correntista);
-
-        $stmt->bindValue(6, $model->id_conta);
+        $stmt->bindValue(5, $model->id_conta);
 
         return $stmt->execute();
 
     }
 
-    public function Delete(int $id) : bool
+    /*public function Delete(int $id) : bool
     {
 
         $sql = "DELETE FROM Conta WHERE id_conta = ?";
@@ -72,6 +70,21 @@ class ContaDAO extends DAO
         $stmt = $this->conexao->prepare($sql);
 
         $stmt->bindValue(1, $id);
+
+        return $stmt->execute();
+
+    }*/
+
+    public function Disable(int $id, bool $ativamento) : bool
+    {
+
+        $sql = "UPDATE Conta SET ativa = ? WHERE id_conta = ?";
+
+        $stmt = $this->conexao->prepare($sql);
+
+        $stmt->bindValue(1, $ativamento);
+
+        $stmt->bindValue(2, $id);
 
         return $stmt->execute();
 
@@ -95,7 +108,7 @@ class ContaDAO extends DAO
 
         $parametro = [":filtro" => "%" . $query . "%"];
 
-        $sql = "SELECT * FROM Conta WHERE numero LIKE :filtro ORDER BY id_conta ASC";
+        $sql = "SELECT * FROM Conta WHERE numero LIKE :filtro ORDER BY numero ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -104,13 +117,6 @@ class ContaDAO extends DAO
         return $stmt->fetchAll(DAO::FETCH_CLASS, "App\Model\ContaModel");
 
     }
-
-    /*public function Disable()
-    {
-
-
-
-    }*/
 
 }
 

@@ -16,7 +16,7 @@ class ContaModel extends Model
 
         $dao = new ContaDAO();
 
-        if($this->id_conta)
+        if(empty($this->id_conta))
         {
 
             return $dao->Insert($this);
@@ -32,14 +32,30 @@ class ContaModel extends Model
 
     }
 
-    public function Erase(int $id)
+    /*public function Erase(int $id)
     {
 
         (new ContaDAO())->Delete($id);
 
+    }*/
+
+    public function Disable(int $id, bool $ativamento)
+    {
+
+        (new ContaDAO())->Disable($id, $ativamento);
+
     }
 
-    /*public function Gerar_Extrato()
+    public function Query(string $filtro = null)
+    {
+
+        $dao = new ContaDAO();
+
+        $this->rows = ($filtro == null) ? $dao->Select() : $dao->SelectByIDConta($filtro);
+
+    }
+
+    /*public function Generate_Extract()
     {
 
         

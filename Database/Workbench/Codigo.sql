@@ -29,7 +29,7 @@ FOREIGN KEY(fk_correntista) REFERENCES Correntista(id_correntista)
 CREATE TABLE IF NOT EXISTS Chave_Pix (
 
 id_chave_pix INT AUTO_INCREMENT PRIMARY KEY,
-chave VARCHAR(20),
+chave VARCHAR(50),
 tipo VARCHAR(20),
 
 fk_conta INT,

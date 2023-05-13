@@ -44,13 +44,13 @@ class ContaController extends Controller
 
     }
 
-    public static function Remove() : void
+    /*public static function Remove() : void
     {
 
         try
         {
 
-            $id = json_decode(file_get_contents("php://input"));
+            $id_conta = json_decode(file_get_contents("php://input"));
 
             (new ContaModel())->Erase((int) $id);
 
@@ -63,9 +63,78 @@ class ContaController extends Controller
 
         }
 
+    }*/
+
+    public static function Disable() : void
+    {
+
+        try
+        {
+
+            $objeto_json = json_decode(file_get_contents("php://input"));
+
+            (new ContaModel())->Disable((int) $objeto_json->id_conta, (bool) $objeto_json->ativa);
+
+        }
+
+        catch(Exception $ex)
+        {
+
+            parent::GetExceptionAsJSON($ex);
+
+        }
+
     }
 
-    public static function Generate_Extract() : void
+    public static function List() : void
+    {
+
+        try
+        {
+
+            $model = new ContaModel();
+
+            $model->Query();
+
+            parent::GetResponseAsJSON($model->rows);
+
+        }
+
+        catch(Exception $ex)
+        {
+
+            parent::GetExceptionAsJSON($ex);
+
+        }
+
+    }
+
+    public static function Search() : void
+    {
+
+        try
+        {
+
+            $model = new ContaModel();
+
+            $conteudo = json_decode(file_get_contents("php://input"));
+
+            $model->Query($conteudo);
+
+            parent::GetResponseAsJSON($model->rows);
+
+        }
+
+        catch(Exception $ex)
+        {
+
+            parent::GetExceptionAsJSON($ex);
+
+        }
+
+    }
+
+    /*public static function Generate_Extract() : void
     {
 
         try
@@ -82,7 +151,7 @@ class ContaController extends Controller
 
         }
 
-    }
+    }*/
 
 }
 

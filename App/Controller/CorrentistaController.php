@@ -42,7 +42,7 @@ class CorrentistaController extends Controller
 
     }
 
-    public static function Remove() : void
+    /*public static function Remove() : void
     {
 
         try
@@ -51,6 +51,27 @@ class CorrentistaController extends Controller
             $id = json_decode(file_get_contents("php://input"));
 
             (new CorrentistaModel())->Erase((int) $id);
+
+        }
+
+        catch(Exception $ex)
+        {
+
+            parent::GetExceptionAsJSON($ex);
+
+        }
+
+    }*/
+
+    public static function Disable() : void
+    {
+
+        try
+        {
+
+            $objeto_json = json_decode(file_get_contents("php://input"));
+
+            (new CorrentistaModel())->Disable((int) $objeto_json->id_correntista, (bool) $objeto_json->ativo);
 
         }
 

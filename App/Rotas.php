@@ -20,8 +20,12 @@ switch($url)
         CorrentistaController::Register();
     break;
 
-    case "/correntista/apagar":
+    /*case "/correntista/apagar":
         CorrentistaController::Remove();
+    break;*/
+
+    case "/correntista/desativar":
+        CorrentistaController::Disable();
     break;
 
     case "/correntista/pesquisar":
@@ -30,37 +34,53 @@ switch($url)
 
     // Conta:
 
+    case "/conta":
+        ContaController::List();
+    break;
+
     case "/conta/salvar":
         ContaController::Register();
     break;
 
-    case "/conta/apagar":
+    /*case "/conta/apagar":
         ContaController::Remove();
+    break;*/
+
+    case "/conta/desativar":
+        ContaController::Disable();
     break;
 
-    case "/conta/gerar_extrato":
+    case "/conta/pesquisar":
+        ContaController::Search();
+    break;
+
+    /*case "/conta/gerar_extrato":
         ContaController::Generate_Extract();
+    break;*/
+
+    // Chave Pix:
+
+    case "/chave_pix":
+        ChavePixController::List();
     break;
 
-    /*// Chave Pix:
-
-    case "/chave_pix/criar":
-        ChavePixController::Criar();
+    case "/chave_pix/salvar":
+        ChavePixController::Register();
     break;
 
-    case "/chave_pix/editar":
-        ChavePixController::Editar();
+    case "/chave_pix/apagar":
+        ChavePixController::Remove();
     break;
 
-    case "/chave_pix/excluir":
-        ChavePixController::Excluir();
+    case "/chave_pix/pesquisar":
+        ChavePixController::Search();
     break;
 
-    case "/chave_pix/atualizar_portador":
-        ChavePixController::Atualizar_Portador();
-    break;
+    /*case "/chave_pix/atualizar_portador":
+        ChavePixController::Update_Carrier();
+    break;*/
 
-    // Transação:
+    /*// Transação:
 
     case "/conta/pix/transferir":
         ContaController::Transferir();

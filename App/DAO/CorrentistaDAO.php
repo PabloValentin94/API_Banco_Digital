@@ -64,7 +64,7 @@ class CorrentistaDAO extends DAO
 
     }
 
-    public function Delete(int $id) : bool
+    /*public function Delete(int $id) : bool
     {
 
         $sql = "DELETE FROM Correntista WHERE id_correntista = ?";
@@ -72,6 +72,21 @@ class CorrentistaDAO extends DAO
         $stmt = $this->conexao->prepare($sql);
 
         $stmt->bindValue(1, $id);
+
+        return $stmt->execute();
+
+    }*/
+
+    public function Disable(int $id, bool $ativamento) : bool
+    {
+
+        $sql = "UPDATE Correntista SET ativo = ? WHERE id_correntista = ?";
+
+        $stmt = $this->conexao->prepare($sql);
+
+        $stmt->bindValue(1, $ativamento);
+
+        $stmt->bindValue(2, $id);
 
         return $stmt->execute();
 
@@ -104,13 +119,6 @@ class CorrentistaDAO extends DAO
         return $stmt->fetchAll(DAO::FETCH_CLASS, "App\Model\CorrentistaModel");
 
     }
-
-    /*public function Disable()
-    {
-
-
-
-    }*/
 
 }
 

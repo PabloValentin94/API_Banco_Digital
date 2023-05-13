@@ -14,7 +14,7 @@ class CorrentistaModel extends Model
 
         $dao = new CorrentistaDAO();
 
-        if($this->id_correntista == null)
+        if(empty($this->id_correntista))
         {
 
             return $dao->Insert($this);
@@ -30,10 +30,17 @@ class CorrentistaModel extends Model
 
     }
     
-    public function Erase(int $id)
+    /*public function Erase(int $id)
     {
 
         (new CorrentistaDAO())->Delete($id);
+
+    }*/
+
+    public function Disable(int $id, bool $ativamento)
+    {
+
+        (new CorrentistaDAO())->Disable($id, $ativamento);
 
     }
 
