@@ -19,7 +19,7 @@ class ContaController extends Controller
 
             $model = new ContaModel();
 
-            $model->id_conta = $objeto_json->id;
+            //$model->id_conta = $objeto_json->id;
 
             $model->numero = $objeto_json->numero;
 

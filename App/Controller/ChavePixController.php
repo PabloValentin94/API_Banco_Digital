@@ -19,7 +19,7 @@ class ChavePixController extends Controller
 
             $objeto_json = json_decode(file_get_contents("php://input"));
 
-            $model->id_chave_pix = $objeto_json->id_chave_pix;
+            //$model->id_chave_pix = $objeto_json->id_chave_pix;
 
             $model->chave = $objeto_json->chave;
 

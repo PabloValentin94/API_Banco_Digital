@@ -17,7 +17,7 @@ class ContaDAO extends DAO
     public function Insert(ContaModel $model) : ContaModel
     {
 
-        $sql = "INSERT INTO Conta(numero, tipo, senha_conta, ativa, " +
+        $sql = "INSERT INTO Conta(numero, tipo, senha_conta, ativa, " .
                "fk_correntista) VALUES(?, ?, ?, ?, ?)";
 
         $stmt = $this->conexao->prepare($sql);
@@ -43,7 +43,7 @@ class ContaDAO extends DAO
     public function Update(ContaModel $model) : bool
     {
 
-        $sql = "UPDATE Conta SET numero = ?, tipo = ?, senha_conta = ?, " +
+        $sql = "UPDATE Conta SET numero = ?, tipo = ?, senha_conta = ?, " .
                "fk_correntista = ? WHERE id_conta = ?"; 
 
         $stmt = $this->conexao->prepare($sql);

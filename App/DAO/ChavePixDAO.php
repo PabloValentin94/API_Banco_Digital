@@ -38,7 +38,7 @@ class ChavePixDAO extends DAO
     public function Update(ChavePixModel $model) : bool
     {
 
-        $sql = "UPDATE Chave_Pix SET chave = ?, tipo = ?, fk_tipo = ? " +
+        $sql = "UPDATE Chave_Pix SET chave = ?, tipo = ?, fk_tipo = ? " .
                "WHERE id_chave_pix = ?";
 
         $stmt = $this->conexao->prepare($sql);
