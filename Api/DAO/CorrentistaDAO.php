@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DAO;
+namespace Api\DAO;
 
-use App\Model\CorrentistaModel;
+use Api\Model\CorrentistaModel;
 
 class CorrentistaDAO extends DAO
 {
@@ -18,7 +18,7 @@ class CorrentistaDAO extends DAO
     {
 
         $sql = "INSERT INTO Correntista(nome, cpf, data_nascimento, " .
-               "senha_correntista, ativo) VALUES(?, ?, ?, ?, ?)";
+               "senha_correntista, ativo) VALUES(?, ?, ?, MD5(?), ?)";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -44,7 +44,7 @@ class CorrentistaDAO extends DAO
     {
 
         $sql = "UPDATE Correntista SET nome = ?, cpf = ?, data_nascimento = ?, " .
-               "senha_correntista = ?, ativo = ? WHERE id_correntista = ?";
+               "senha_correntista = MD5(?), ativo = ? WHERE id_correntista = ?";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -64,19 +64,6 @@ class CorrentistaDAO extends DAO
 
     }
 
-    /*public function Delete(int $id) : bool
-    {
-
-        $sql = "DELETE FROM Correntista WHERE id_correntista = ?";
-
-        $stmt = $this->conexao->prepare($sql);
-
-        $stmt->bindValue(1, $id);
-
-        return $stmt->execute();
-
-    }*/
-
     public function Disable(int $id, bool $ativamento) : bool
     {
 
@@ -95,28 +82,46 @@ class CorrentistaDAO extends DAO
     public function Select() : array
     {
 
-        $sql = "SELECT * FROM Correntista ORDER BY id_correntista ASC";
+        $sql = "SELECT * FROM Correntista WHERE ativo = true ORDER BY id_correntista ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
         $stmt->execute();
 
-        return $stmt->fetchAll(DAO::FETCH_CLASS, "App\Model\CorrentistaModel");
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "Api\Model\CorrentistaModel");
 
     }
 
-    public function SelectByNomeCorrentista(string $query) : array
+    public function Search(string $query) : array
     {
 
         $parametro = [":filtro" => "%" . $query. "%"];
 
-        $sql = "SELECT * FROM Correntista WHERE nome LIKE :filtro ORDER BY id_correntista ASC";
+        $sql = "SELECT * FROM Correntista WHERE ativo = true AND nome LIKE :filtro ORDER BY id_correntista ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
         $stmt->execute($parametro);
 
-        return $stmt->fetchAll(DAO::FETCH_CLASS, "App\Model\CorrentistaModel");
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "Api\Model\CorrentistaModel");
+
+    }
+
+    public function Login(string $usuario, string $senha) : array
+    {
+
+        $sql = "SELECT * FROM Correntista WHERE ativo = true AND nome = ? " .
+               "AND senha_correntista = MD5(?) ORDER BY id_correntista ASC";
+
+        $stmt = $this->conexao->prepare($sql);
+
+        $stmt->bindValue(1, $usuario);
+
+        $stmt->bindValue(2, $senha);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(DAO::FETCH_CLASS);
 
     }
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DAO;
+namespace Api\DAO;
 
-use App\Model\ContaModel;
+use Api\Model\ContaModel;
 
 class ContaDAO extends DAO
 {
@@ -18,7 +18,7 @@ class ContaDAO extends DAO
     {
 
         $sql = "INSERT INTO Conta(numero, tipo, senha_conta, ativa, " .
-               "fk_correntista) VALUES(?, ?, ?, ?, ?)";
+               "fk_correntista) VALUES(?, ?, MD5(?), ?, ?)";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -43,7 +43,7 @@ class ContaDAO extends DAO
     public function Update(ContaModel $model) : bool
     {
 
-        $sql = "UPDATE Conta SET numero = ?, tipo = ?, senha_conta = ?, " .
+        $sql = "UPDATE Conta SET numero = ?, tipo = ?, senha_conta = MD5(?), " .
                "fk_correntista = ? WHERE id_conta = ?"; 
 
         $stmt = $this->conexao->prepare($sql);
@@ -61,19 +61,6 @@ class ContaDAO extends DAO
         return $stmt->execute();
 
     }
-
-    /*public function Delete(int $id) : bool
-    {
-
-        $sql = "DELETE FROM Conta WHERE id_conta = ?";
-
-        $stmt = $this->conexao->prepare($sql);
-
-        $stmt->bindValue(1, $id);
-
-        return $stmt->execute();
-
-    }*/
 
     public function Disable(int $id, bool $ativamento) : bool
     {
@@ -93,28 +80,28 @@ class ContaDAO extends DAO
     public function Select() : array
     {
 
-        $sql = "SELECT * FROM Conta ORDER BY id_conta ASC";
+        $sql = "SELECT * FROM Conta WHERE ativa = true ORDER BY id_conta ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
         $stmt->execute();
 
-        return $stmt->fetchAll(DAO::FETCH_CLASS, "App\Model\ContaModel");
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "Api\Model\ContaModel");
 
     }
 
-    public function SelectByIDConta(int $query) : array
+    public function Search(int $query) : array
     {
 
         $parametro = [":filtro" => "%" . $query . "%"];
 
-        $sql = "SELECT * FROM Conta WHERE numero LIKE :filtro ORDER BY numero ASC";
+        $sql = "SELECT * FROM Conta WHERE ativa = true AND numero LIKE :filtro ORDER BY numero ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
         $stmt->execute($parametro);
 
-        return $stmt->fetchAll(DAO::FETCH_CLASS, "App\Model\ContaModel");
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "Api\Model\ContaModel");
 
     }
 

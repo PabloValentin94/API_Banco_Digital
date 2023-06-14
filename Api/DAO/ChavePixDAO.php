@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DAO;
+namespace Api\DAO;
 
-use App\Model\ChavePixModel;
+use Api\Model\ChavePixModel;
 
 class ChavePixDAO extends DAO
 {
@@ -77,11 +77,11 @@ class ChavePixDAO extends DAO
 
         $stmt->execute();
 
-        return $stmt->fetchAll(DAO::FETCH_CLASS, "App\Model\ChavePixModel");
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "Api\Model\ChavePixModel");
 
     }
 
-    public function SelectByChavePix(string $query) : array
+    public function Search(string $query) : array
     {
 
         $parametro = [":filtro" => "%" . $query . "%"];
@@ -92,7 +92,7 @@ class ChavePixDAO extends DAO
 
         $stmt->execute($parametro);
 
-        return $stmt->fetchall(DAO::FETCH_CLASS, "App\Model\ChavePixModel");
+        return $stmt->fetchall(DAO::FETCH_CLASS, "Api\Model\ChavePixModel");
 
     }
 

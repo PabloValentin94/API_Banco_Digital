@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DAO;
+namespace Api\DAO;
 
 class TransacaoDAO extends DAO
 {
@@ -40,7 +40,7 @@ class TransacaoDAO extends DAO
 
     }
 
-    public function SelectByIDTransacao()
+    public function Search()
     {
 
         

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Model;
+namespace Api\Model;
 
 use Exception;
 
-use App\DAO\ChavePixDAO;
+use Api\DAO\ChavePixDAO;
 
 class ChavePixModel extends Model
 {
@@ -39,21 +39,14 @@ class ChavePixModel extends Model
 
     }
 
-    public function Query(string $filtro = null)
+    public function GetRows(string $filtro = null)
     {
 
         $dao = new ChavePixDAO();
 
-        $this->rows = ($filtro == null) ? $dao->Select() : $dao->SelectByChavePix($filtro);
+        $this->rows = ($filtro == null) ? $dao->Select() : $dao->Search($filtro);
 
     }
-
-    /*public function Update_Carrier()
-    {
-
-        
-        
-    }*/
 
 }
 

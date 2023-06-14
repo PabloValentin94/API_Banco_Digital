@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Model;
+namespace Api\Model;
 
 use Exception;
 
-use App\DAO\ContaDAO;
+use Api\DAO\ContaDAO;
 
 class ContaModel extends Model
 {
@@ -32,13 +32,6 @@ class ContaModel extends Model
 
     }
 
-    /*public function Erase(int $id)
-    {
-
-        (new ContaDAO())->Delete($id);
-
-    }*/
-
     public function Disable(int $id, bool $ativamento)
     {
 
@@ -46,21 +39,14 @@ class ContaModel extends Model
 
     }
 
-    public function Query(string $filtro = null)
+    public function GetRows(string $filtro = null)
     {
 
         $dao = new ContaDAO();
 
-        $this->rows = ($filtro == null) ? $dao->Select() : $dao->SelectByIDConta($filtro);
+        $this->rows = ($filtro == null) ? $dao->Select() : $dao->Search($filtro);
 
     }
-
-    /*public function Generate_Extract()
-    {
-
-        
-
-    }*/
 
 }
 

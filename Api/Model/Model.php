@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Model;
-
-use Exception;
+namespace Api\Model;
 
 abstract class Model
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace Api\Controller;
 
 use Exception;
 
 abstract class Controller
 {
 
-    protected static function GetResponseAsJSON($data) : void
+    protected static function SendReturnAsJson($data) : void
     {
 
         header("Access-Control-Allow-Origin: *");
@@ -20,7 +20,7 @@ abstract class Controller
 
     }
 
-    protected static function GetExceptionAsJSON(Exception $ex) : void
+    protected static function SendExceptionAsJson(Exception $ex) : void
     {
 
         $exception = [

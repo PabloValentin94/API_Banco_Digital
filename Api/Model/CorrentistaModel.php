@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model;
+namespace Api\Model;
 
-use App\DAO\CorrentistaDAO;
+use Api\DAO\CorrentistaDAO;
 
 class CorrentistaModel extends Model
 {
@@ -29,13 +29,6 @@ class CorrentistaModel extends Model
         }
 
     }
-    
-    /*public function Erase(int $id)
-    {
-
-        (new CorrentistaDAO())->Delete($id);
-
-    }*/
 
     public function Disable(int $id, bool $ativamento)
     {
@@ -44,12 +37,19 @@ class CorrentistaModel extends Model
 
     }
 
-    public function Query(string $filtro = null)
+    public function GetRows(string $filtro = null)
     {
 
         $dao = new CorrentistaDAO();
 
-        $this->rows = ($filtro == null) ? $dao->Select() : $dao->SelectByNomeCorrentista($filtro);
+        $this->rows = ($filtro == null) ? $dao->Select() : $dao->Search($filtro);
+
+    }
+
+    public function LoginValidation(string $usuario, string $senha)
+    {
+
+        return (new CorrentistaDAO())->Login($usuario, $senha);
 
     }
 

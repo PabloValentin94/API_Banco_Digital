@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Controller;
+namespace Api\Controller;
 
 use Exception;
 
-use App\Model\ChavePixModel;
+use Api\Model\ChavePixModel;
 
 class ChavePixController extends Controller
 {
 
-    public static function Register() : void
+    public static function SaveAsyncChavePix() : void
     {
 
         try
@@ -19,7 +19,7 @@ class ChavePixController extends Controller
 
             $objeto_json = json_decode(file_get_contents("php://input"));
 
-            //$model->id_chave_pix = $objeto_json->id_chave_pix;
+            $model->id_chave_pix = $objeto_json->id_chave_pix;
 
             $model->chave = $objeto_json->chave;
 
@@ -27,20 +27,20 @@ class ChavePixController extends Controller
 
             $model->fk_conta = $objeto_json->fk_conta;
 
-            parent::GetResponseAsJSON($model->Save());
+            parent::SendReturnAsJson($model->Save());
 
         }
 
         catch(Exception $ex)
         {
 
-            parent::GetExceptionAsJSON($ex);
+            parent::SendExceptionAsJson($ex);
 
         }
 
     }
 
-    public static function Remove() : void
+    public static function RemoveAsyncChavePix() : void
     {
 
         try
@@ -55,13 +55,13 @@ class ChavePixController extends Controller
         catch(Exception $ex)
         {
 
-            parent::GetExceptionAsJSON($ex);
+            parent::SendExceptionAsJson($ex);
 
         }
 
     }
 
-    public static function List() : void
+    public static function GetListAsyncChavePix() : void
     {
 
         try
@@ -69,52 +69,45 @@ class ChavePixController extends Controller
 
             $model = new ChavePixModel();
 
-            $model->Query();
+            $model->GetRows();
 
-            parent::GetResponseAsJSON($model->rows);
+            parent::SendReturnAsJson($model->rows);
 
         }
 
         catch(Exception $ex)
         {
 
-            parent::GetExceptionAsJSON($ex);
+            parent::SendExceptionAsJson($ex);
 
         }
 
     }
 
-    public static function Search() : void
+    public static function SearchAsyncChavePix() : void
     {
 
         try
         {
 
+            $filtro = json_decode(file_get_contents("php://input"));
+
             $model = new ChavePixModel();
 
-            $conteudo = json_decode(file_get_contents("php://input"));
+            $model->GetRows($filtro);
 
-            $model->Query($conteudo);
-
-            parent::GetResponseAsJSON($model->rows);
+            parent::SendReturnAsJson($model->rows);
 
         }
 
         catch(Exception $ex)
         {
 
-            parent::GetExceptionAsJSON($ex);
+            parent::SendExceptionAsJson($ex);
 
         }
 
     }
-
-    /*public static function Update_Carrier() : void
-    {
-
-        
-
-    }*/
 
 }
 
