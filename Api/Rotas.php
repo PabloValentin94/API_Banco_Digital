@@ -28,6 +28,10 @@ switch($url)
         CorrentistaController::SearchAsyncCorrentista();
     break;
 
+    case "/correntista/login":
+        CorrentistaController::LoginAsyncCorrentista();
+    break;
+
     // Conta:
 
     case "/conta/save":

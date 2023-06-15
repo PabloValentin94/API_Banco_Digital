@@ -82,7 +82,7 @@ class CorrentistaDAO extends DAO
     public function Select() : array
     {
 
-        $sql = "SELECT * FROM Correntista WHERE ativo = true ORDER BY id_correntista ASC";
+        $sql = "SELECT * FROM Correntista WHERE ativo = 1 ORDER BY id_correntista ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -97,7 +97,7 @@ class CorrentistaDAO extends DAO
 
         $parametro = [":filtro" => "%" . $query. "%"];
 
-        $sql = "SELECT * FROM Correntista WHERE ativo = true AND nome LIKE :filtro ORDER BY id_correntista ASC";
+        $sql = "SELECT * FROM Correntista WHERE ativo = 1 AND nome LIKE :filtro ORDER BY id_correntista ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -110,7 +110,7 @@ class CorrentistaDAO extends DAO
     public function Login(string $usuario, string $senha) : array
     {
 
-        $sql = "SELECT * FROM Correntista WHERE ativo = true AND nome = ? " .
+        $sql = "SELECT * FROM Correntista WHERE ativo = 1 AND nome = ? " .
                "AND senha_correntista = MD5(?) ORDER BY id_correntista ASC";
 
         $stmt = $this->conexao->prepare($sql);

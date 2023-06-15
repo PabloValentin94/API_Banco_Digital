@@ -49,7 +49,7 @@ class CorrentistaModel extends Model
     public function LoginValidation(string $usuario, string $senha)
     {
 
-        return (new CorrentistaDAO())->Login($usuario, $senha);
+        $this->rows = (new CorrentistaDAO())->Login($usuario, $senha);
 
     }
 

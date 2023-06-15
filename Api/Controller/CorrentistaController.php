@@ -5,6 +5,7 @@ namespace Api\Controller;
 use Exception;
 
 use Api\Model\CorrentistaModel;
+use stdClass;
 
 class CorrentistaController extends Controller
 {
@@ -19,7 +20,14 @@ class CorrentistaController extends Controller
 
             $model = new CorrentistaModel();
 
-            $model->id_correntista = $objeto_json->id;
+            if(empty($objeto_json->id_correntista))
+            {
+
+                $model->id_correntista = $objeto_json->id_correntista;
+
+            }
+
+            $model->nome = $objeto_json->nome;
 
             $model->cpf = $objeto_json->cpf;
 

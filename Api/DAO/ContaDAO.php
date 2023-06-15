@@ -80,7 +80,7 @@ class ContaDAO extends DAO
     public function Select() : array
     {
 
-        $sql = "SELECT * FROM Conta WHERE ativa = true ORDER BY id_conta ASC";
+        $sql = "SELECT * FROM Conta WHERE ativa = 1 ORDER BY id_conta ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -95,7 +95,7 @@ class ContaDAO extends DAO
 
         $parametro = [":filtro" => "%" . $query . "%"];
 
-        $sql = "SELECT * FROM Conta WHERE ativa = true AND numero LIKE :filtro ORDER BY numero ASC";
+        $sql = "SELECT * FROM Conta WHERE ativa = 1 AND numero LIKE :filtro ORDER BY numero ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
