@@ -14,11 +14,11 @@ class CorrentistaDAO extends DAO
         
     }
 
-    public function Insert(CorrentistaModel $model) : CorrentistaModel
+    public function Insert(CorrentistaModel $model) : ?CorrentistaModel
     {
 
-        $sql = "INSERT INTO Correntista(nome, cpf, data_nascimento, " .
-               "senha_correntista, ativo) VALUES(?, ?, ?, MD5(?), ?)";
+        $sql = "INSERT INTO Correntista(nome, cpf, email, data_nascimento, " .
+               "senha_correntista, ativo) VALUES(?, ?, ?, ?, MD5(?), ?)";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -26,11 +26,13 @@ class CorrentistaDAO extends DAO
 
         $stmt->bindValue(2, $model->cpf);
 
-        $stmt->bindValue(3, $model->data_nascimento);
+        $stmt->bindValue(3, $model->email);
 
-        $stmt->bindValue(4, $model->senha_correntista);
+        $stmt->bindValue(4, $model->data_nascimento);
 
-        $stmt->bindValue(5, $model->ativo);
+        $stmt->bindValue(5, $model->senha_correntista);
+
+        $stmt->bindValue(6, $model->ativo);
 
         $stmt->execute();
 
@@ -43,7 +45,7 @@ class CorrentistaDAO extends DAO
     public function Update(CorrentistaModel $model) : bool
     {
 
-        $sql = "UPDATE Correntista SET nome = ?, cpf = ?, data_nascimento = ?, " .
+        $sql = "UPDATE Correntista SET nome = ?, cpf = ?, email = ?, data_nascimento = ?, " .
                "senha_correntista = MD5(?), ativo = ? WHERE id_correntista = ?";
 
         $stmt = $this->conexao->prepare($sql);
@@ -52,13 +54,15 @@ class CorrentistaDAO extends DAO
 
         $stmt->bindValue(2, $model->cpf);
 
-        $stmt->bindValue(3, $model->data_nascimento);
+        $stmt->bindValue(3, $model->email);
 
-        $stmt->bindValue(4, $model->senha_correntista);
+        $stmt->bindValue(4, $model->data_nascimento);
 
-        $stmt->bindValue(5, $model->ativo);
+        $stmt->bindValue(5, $model->senha_correntista);
 
-        $stmt->bindValue(6, $model->id_correntista);
+        $stmt->bindValue(6, $model->ativo);
+
+        $stmt->bindValue(7, $model->id_correntista);
 
         return $stmt->execute();
 

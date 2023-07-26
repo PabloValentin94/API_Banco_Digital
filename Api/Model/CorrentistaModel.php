@@ -3,28 +3,96 @@
 namespace Api\Model;
 
 use Api\DAO\CorrentistaDAO;
+use Api\DAO\ContaDAO;
+
+use Api\Model\ContaModel;
 
 class CorrentistaModel extends Model
 {
 
-    public $id_correntista, $nome, $cpf, $data_nascimento, $senha_correntista, $ativo;
+    public $id_correntista, $nome, $cpf, $email, $data_nascimento, $senha_correntista, $ativo, $data_cadastro;
 
-    public function Save()
+    public $dados_contas;
+
+    public function Save() : ?CorrentistaModel
     {
 
-        $dao = new CorrentistaDAO();
+        $correntista_dao = new CorrentistaDAO();
 
         if(empty($this->id_correntista))
         {
 
-            return $dao->Insert($this);
+            $correntista_model = $correntista_dao->Insert($this);
+
+            if($correntista_model->id_correntista != null)
+            {
+
+                $conta_dao = new ContaDAO();
+
+                $conta = 0;
+    
+                while($conta < 2)
+                {
+    
+                    switch($conta)
+                    {
+    
+                        case 0:
+    
+                            $conta_corrente_model = new ContaModel();
+
+                            $conta_corrente_model->saldo = 0;
+
+                            $conta_corrente_model->limite = 100;
+
+                            $conta_corrente_model->tipo = "Corrente";
+
+                            $conta_corrente_model->ativa = 1;
+
+                            $conta_corrente_model->fk_correntista = $correntista_model->id_correntista;
+
+                            $conta_dao->Insert($conta_corrente_model);
+
+                            $correntista_model->dados_contas[] = $conta_corrente_model;
+                        
+                        break;
+    
+                        case 1:
+    
+                            $conta_poupanca_model = new ContaModel();
+
+                            $conta_poupanca_model->saldo = 0;
+
+                            $conta_poupanca_model->limite = 0;
+
+                            $conta_poupanca_model->tipo = "Poupança";
+
+                            $conta_poupanca_model->ativa = 1;
+
+                            $conta_poupanca_model->fk_correntista = $correntista_model->id_correntista;
+
+                            $conta_dao->Insert($conta_poupanca_model);
+
+                            $correntista_model->dados_contas[] = $conta_poupanca_model;
+    
+                        break;
+    
+                    }
+
+                    $conta++;
+    
+                }
+
+                return $correntista_model;
+
+            }
 
         }
 
         else
         {
 
-            return $dao->Update($this);
+            return $correntista_dao->Update($this);
 
         }
 

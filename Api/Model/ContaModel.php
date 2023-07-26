@@ -9,7 +9,7 @@ use Api\DAO\ContaDAO;
 class ContaModel extends Model
 {
 
-    public $id_conta, $numero, $tipo, $senha_conta, $ativa, $fk_correntista;
+    public $id_conta, $saldo, $limite, $tipo, $ativa, $fk_correntista, $data_abertura;
 
     public function Save()
     {
@@ -39,7 +39,7 @@ class ContaModel extends Model
 
     }
 
-    public function GetRows(string $filtro = null)
+    public function GetRows(int $filtro = null)
     {
 
         $dao = new ContaDAO();

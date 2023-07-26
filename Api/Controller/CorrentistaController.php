@@ -5,7 +5,6 @@ namespace Api\Controller;
 use Exception;
 
 use Api\Model\CorrentistaModel;
-use stdClass;
 
 class CorrentistaController extends Controller
 {

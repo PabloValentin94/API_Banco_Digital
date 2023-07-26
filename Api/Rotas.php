@@ -1,14 +1,23 @@
 <?php
 
-use Api\Controller\CorrentistaController;
-use Api\Controller\ContaController;
-use Api\Controller\ChavePixController;
-use Api\Controller\TransacaoController;
+use Api\Controller\
+{
+
+    CorrentistaController,
+    ContaController,
+    ChavePixController,
+    TransacaoController
+
+};
 
 $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 
 switch($url)
 {
+
+    case "/":
+        echo "Início";
+    break;
 
     // Correntista:
 

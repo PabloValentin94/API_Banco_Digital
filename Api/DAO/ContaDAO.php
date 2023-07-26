@@ -14,19 +14,18 @@ class ContaDAO extends DAO
         
     }
 
-    public function Insert(ContaModel $model) : ContaModel
+    public function Insert(ContaModel $model) : ?ContaModel
     {
 
-        $sql = "INSERT INTO Conta(numero, tipo, senha_conta, ativa, " .
-               "fk_correntista) VALUES(?, ?, MD5(?), ?, ?)";
+        $sql = "INSERT INTO Conta(saldo, limite, tipo, ativa, fk_correntista) VALUES(?, ?, ?, ?, ?)";
 
         $stmt = $this->conexao->prepare($sql);
 
-        $stmt->bindValue(1, $model->numero);
+        $stmt->bindValue(1, $model->saldo);
 
-        $stmt->bindValue(2, $model->tipo);
+        $stmt->bindValue(2, $model->limite);
 
-        $stmt->bindValue(3, $model->senha_conta);
+        $stmt->bindValue(3, $model->tipo);
 
         $stmt->bindValue(4, $model->ativa);
 
@@ -43,20 +42,21 @@ class ContaDAO extends DAO
     public function Update(ContaModel $model) : bool
     {
 
-        $sql = "UPDATE Conta SET numero = ?, tipo = ?, senha_conta = MD5(?), " .
-               "fk_correntista = ? WHERE id_conta = ?"; 
+        $sql = "UPDATE Conta SET saldo = ?, limite = ?, tipo = ?, ativa = ?, fk_correntista = ? WHERE id_conta = ?"; 
 
         $stmt = $this->conexao->prepare($sql);
 
-        $stmt->bindValue(1, $model->numero);
+        $stmt->bindValue(1, $model->saldo);
 
-        $stmt->bindValue(2, $model->tipo);
+        $stmt->bindValue(2, $model->limite);
 
-        $stmt->bindValue(3, $model->senha_conta);
+        $stmt->bindValue(3, $model->tipo);
 
-        $stmt->bindValue(4, $model->fk_correntista);
+        $stmt->bindValue(4, $model->ativa);
 
-        $stmt->bindValue(5, $model->id_conta);
+        $stmt->bindValue(5, $model->fk_correntista);
+
+        $stmt->bindValue(6, $model->id_conta);
 
         return $stmt->execute();
 
@@ -95,7 +95,7 @@ class ContaDAO extends DAO
 
         $parametro = [":filtro" => "%" . $query . "%"];
 
-        $sql = "SELECT * FROM Conta WHERE ativa = 1 AND numero LIKE :filtro ORDER BY numero ASC";
+        $sql = "SELECT * FROM Conta WHERE ativa = 1 AND fk_correntista LIKE :filtro ORDER BY id_conta ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
