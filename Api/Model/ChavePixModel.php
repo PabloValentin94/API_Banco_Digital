@@ -2,8 +2,6 @@
 
 namespace Api\Model;
 
-use Exception;
-
 use Api\DAO\ChavePixDAO;
 
 class ChavePixModel extends Model

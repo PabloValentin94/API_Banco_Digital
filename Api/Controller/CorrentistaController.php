@@ -19,7 +19,7 @@ class CorrentistaController extends Controller
 
             $model = new CorrentistaModel();
 
-            if(empty($objeto_json->id_correntista))
+            if(!empty($objeto_json->id_correntista))
             {
 
                 $model->id_correntista = $objeto_json->id_correntista;

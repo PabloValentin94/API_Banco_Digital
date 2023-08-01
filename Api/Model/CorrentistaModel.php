@@ -14,7 +14,7 @@ class CorrentistaModel extends Model
 
     public $dados_contas;
 
-    public function Save() : ?CorrentistaModel
+    public function Save()
     {
 
         $correntista_dao = new CorrentistaDAO();
@@ -28,13 +28,11 @@ class CorrentistaModel extends Model
             {
 
                 $conta_dao = new ContaDAO();
-
-                $conta = 0;
     
-                while($conta < 2)
+                for($i = 0; $i < 2; $i++)
                 {
     
-                    switch($conta)
+                    switch($i)
                     {
     
                         case 0:
@@ -78,8 +76,6 @@ class CorrentistaModel extends Model
                         break;
     
                     }
-
-                    $conta++;
     
                 }
 

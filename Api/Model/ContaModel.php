@@ -2,8 +2,6 @@
 
 namespace Api\Model;
 
-use Exception;
-
 use Api\DAO\ContaDAO;
 
 class ContaModel extends Model
