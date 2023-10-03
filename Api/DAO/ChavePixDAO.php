@@ -29,7 +29,7 @@ class ChavePixDAO extends DAO
 
         $stmt->execute();
 
-        $model->id_chave_pix = $this->conexao->lastInsertId();
+        $model->id = $this->conexao->lastInsertId();
 
         return $model;
 
@@ -49,7 +49,7 @@ class ChavePixDAO extends DAO
 
         $stmt->bindValue(3, $model->fk_conta);
 
-        $stmt->bindValue(4, $model->id_chave_pix);
+        $stmt->bindValue(4, $model->id);
 
         return $stmt->execute();
 
@@ -58,7 +58,7 @@ class ChavePixDAO extends DAO
     public function Delete(int $id) : bool
     {
 
-        $sql = "DELETE FROM Chave_Pix WHERE id_chave_pix = ?";
+        $sql = "DELETE FROM Chave_Pix WHERE id = ?";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -71,7 +71,7 @@ class ChavePixDAO extends DAO
     public function Select() : array
     {
 
-        $sql = "SELECT * FROM Chave_Pix ORDER BY id_chave_pix ASC";
+        $sql = "SELECT * FROM Chave_Pix ORDER BY id ASC";
 
         $stmt = $this->conexao->prepare($sql);
 

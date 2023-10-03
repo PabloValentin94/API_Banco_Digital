@@ -7,14 +7,14 @@ use Api\DAO\ContaDAO;
 class ContaModel extends Model
 {
 
-    public $id_conta, $saldo, $limite, $tipo, $ativa, $fk_correntista, $data_abertura;
+    public $id, $saldo, $limite, $tipo, $ativa, $fk_correntista, $data_abertura;
 
     public function Save()
     {
 
         $dao = new ContaDAO();
 
-        if(empty($this->id_conta))
+        if($this->id == null)
         {
 
             return $dao->Insert($this);

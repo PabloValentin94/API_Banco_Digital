@@ -19,10 +19,10 @@ class ChavePixController extends Controller
 
             $objeto_json = json_decode(file_get_contents("php://input"));
 
-            if(!empty($objeto_json->id_chave_pix))
+            if($objeto_json->id != null)
             {
 
-                $model->id_chave_pix = $objeto_json->id_chave_pix;
+                $model->id = $objeto_json->id;
 
             }
 

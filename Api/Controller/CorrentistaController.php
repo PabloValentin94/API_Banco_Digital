@@ -19,10 +19,10 @@ class CorrentistaController extends Controller
 
             $model = new CorrentistaModel();
 
-            if(!empty($objeto_json->id_correntista))
+            if($objeto_json->id != null)
             {
 
-                $model->id_correntista = $objeto_json->id_correntista;
+                $model->id = $objeto_json->id;
 
             }
 
@@ -30,9 +30,11 @@ class CorrentistaController extends Controller
 
             $model->cpf = $objeto_json->cpf;
 
+            $model->email = $objeto_json->email;
+
             $model->data_nascimento = $objeto_json->data_nascimento;
 
-            $model->senha_correntista = $objeto_json->senha_correntista;
+            $model->senha = $objeto_json->senha;
 
             $model->ativo = $objeto_json->ativo;
 

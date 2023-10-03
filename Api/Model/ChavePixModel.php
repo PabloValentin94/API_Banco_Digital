@@ -7,14 +7,14 @@ use Api\DAO\ChavePixDAO;
 class ChavePixModel extends Model
 {
 
-    public $id_chave_pix, $chave, $tipo, $fk_conta;
+    public $id, $chave, $tipo, $fk_conta;
 
     public function Save()
     {
 
         $dao = new ChavePixDAO();
 
-        if(empty($this->id_chave_pix))
+        if($this->id == null)
         {
 
             $dao->Insert($this);

@@ -18,7 +18,7 @@ class CorrentistaDAO extends DAO
     {
 
         $sql = "INSERT INTO Correntista(nome, cpf, email, data_nascimento, " .
-               "senha_correntista, ativo) VALUES(?, ?, ?, ?, MD5(?), ?)";
+               "senha, ativo) VALUES(?, ?, ?, ?, MD5(?), ?)";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -30,13 +30,13 @@ class CorrentistaDAO extends DAO
 
         $stmt->bindValue(4, $model->data_nascimento);
 
-        $stmt->bindValue(5, $model->senha_correntista);
+        $stmt->bindValue(5, $model->senha);
 
         $stmt->bindValue(6, $model->ativo);
 
         $stmt->execute();
 
-        $model->id_correntista = $this->conexao->lastInsertId();
+        $model->id = $this->conexao->lastInsertId();
 
         return $model;
 
@@ -46,7 +46,7 @@ class CorrentistaDAO extends DAO
     {
 
         $sql = "UPDATE Correntista SET nome = ?, cpf = ?, email = ?, data_nascimento = ?, " .
-               "senha_correntista = MD5(?), ativo = ? WHERE id_correntista = ?";
+               "senha = MD5(?), ativo = ? WHERE id = ?";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -58,11 +58,11 @@ class CorrentistaDAO extends DAO
 
         $stmt->bindValue(4, $model->data_nascimento);
 
-        $stmt->bindValue(5, $model->senha_correntista);
+        $stmt->bindValue(5, $model->senha);
 
         $stmt->bindValue(6, $model->ativo);
 
-        $stmt->bindValue(7, $model->id_correntista);
+        $stmt->bindValue(7, $model->id);
 
         return $stmt->execute();
 
@@ -71,7 +71,7 @@ class CorrentistaDAO extends DAO
     public function Disable(int $id, bool $ativamento) : bool
     {
 
-        $sql = "UPDATE Correntista SET ativo = ? WHERE id_correntista = ?";
+        $sql = "UPDATE Correntista SET ativo = ? WHERE id = ?";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -86,7 +86,7 @@ class CorrentistaDAO extends DAO
     public function Select() : array
     {
 
-        $sql = "SELECT * FROM Correntista WHERE ativo = 1 ORDER BY id_correntista ASC";
+        $sql = "SELECT * FROM Correntista WHERE ativo = 1 ORDER BY id ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -101,7 +101,7 @@ class CorrentistaDAO extends DAO
 
         $parametro = [":filtro" => "%" . $query. "%"];
 
-        $sql = "SELECT * FROM Correntista WHERE ativo = 1 AND nome LIKE :filtro ORDER BY id_correntista ASC";
+        $sql = "SELECT * FROM Correntista WHERE ativo = 1 AND nome LIKE :filtro ORDER BY id ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -115,7 +115,7 @@ class CorrentistaDAO extends DAO
     {
 
         $sql = "SELECT * FROM Correntista WHERE ativo = 1 AND nome = ? " .
-               "AND senha_correntista = MD5(?) ORDER BY id_correntista ASC";
+               "AND senha = MD5(?) ORDER BY id ASC";
 
         $stmt = $this->conexao->prepare($sql);
 

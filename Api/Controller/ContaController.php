@@ -19,10 +19,10 @@ class ContaController extends Controller
 
             $model = new ContaModel();
 
-            if(!empty($objeto_json->id_conta))
+            if($objeto_json->id != null)
             {
 
-                $model->id_conta = $objeto_json->id_conta;
+                $model->id = $objeto_json->id;
 
             }
 

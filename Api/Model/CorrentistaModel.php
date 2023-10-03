@@ -10,7 +10,7 @@ use Api\Model\ContaModel;
 class CorrentistaModel extends Model
 {
 
-    public $id_correntista, $nome, $cpf, $email, $data_nascimento, $senha_correntista, $ativo, $data_cadastro;
+    public $id, $nome, $cpf, $email, $data_nascimento, $senha, $ativo, $data_cadastro;
 
     public $dados_contas;
 
@@ -19,12 +19,12 @@ class CorrentistaModel extends Model
 
         $correntista_dao = new CorrentistaDAO();
 
-        if(empty($this->id_correntista))
+        if($this->id == null)
         {
 
             $correntista_model = $correntista_dao->Insert($this);
 
-            if($correntista_model->id_correntista != null)
+            if($correntista_model->id != null)
             {
 
                 $conta_dao = new ContaDAO();
@@ -47,7 +47,7 @@ class CorrentistaModel extends Model
 
                             $conta_corrente_model->ativa = 1;
 
-                            $conta_corrente_model->fk_correntista = $correntista_model->id_correntista;
+                            $conta_corrente_model->fk_correntista = $correntista_model->id;
 
                             $conta_dao->Insert($conta_corrente_model);
 
@@ -67,7 +67,7 @@ class CorrentistaModel extends Model
 
                             $conta_poupanca_model->ativa = 1;
 
-                            $conta_poupanca_model->fk_correntista = $correntista_model->id_correntista;
+                            $conta_poupanca_model->fk_correntista = $correntista_model->id;
 
                             $conta_dao->Insert($conta_poupanca_model);
 

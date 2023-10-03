@@ -33,7 +33,7 @@ class ContaDAO extends DAO
 
         $stmt->execute();
 
-        $model->id_conta = $this->conexao->lastInsertId();
+        $model->id = $this->conexao->lastInsertId();
 
         return $model;
 
@@ -42,7 +42,7 @@ class ContaDAO extends DAO
     public function Update(ContaModel $model) : bool
     {
 
-        $sql = "UPDATE Conta SET saldo = ?, limite = ?, tipo = ?, ativa = ?, fk_correntista = ? WHERE id_conta = ?"; 
+        $sql = "UPDATE Conta SET saldo = ?, limite = ?, tipo = ?, ativa = ?, fk_correntista = ? WHERE id = ?"; 
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -56,7 +56,7 @@ class ContaDAO extends DAO
 
         $stmt->bindValue(5, $model->fk_correntista);
 
-        $stmt->bindValue(6, $model->id_conta);
+        $stmt->bindValue(6, $model->id);
 
         return $stmt->execute();
 
@@ -65,7 +65,7 @@ class ContaDAO extends DAO
     public function Disable(int $id, bool $ativamento) : bool
     {
 
-        $sql = "UPDATE Conta SET ativa = ? WHERE id_conta = ?";
+        $sql = "UPDATE Conta SET ativa = ? WHERE id = ?";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -80,7 +80,7 @@ class ContaDAO extends DAO
     public function Select() : array
     {
 
-        $sql = "SELECT * FROM Conta WHERE ativa = 1 ORDER BY id_conta ASC";
+        $sql = "SELECT * FROM Conta WHERE ativa = 1 ORDER BY id ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -95,7 +95,7 @@ class ContaDAO extends DAO
 
         $parametro = [":filtro" => "%" . $query . "%"];
 
-        $sql = "SELECT * FROM Conta WHERE ativa = 1 AND fk_correntista LIKE :filtro ORDER BY id_conta ASC";
+        $sql = "SELECT * FROM Conta WHERE ativa = 1 AND fk_correntista LIKE :filtro ORDER BY id ASC";
 
         $stmt = $this->conexao->prepare($sql);
 
