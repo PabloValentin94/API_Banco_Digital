@@ -12,7 +12,7 @@ class CorrentistaModel extends Model
 
     public $id, $nome, $cpf, $email, $data_nascimento, $senha, $ativo, $data_cadastro;
 
-    public $dados_contas;
+    //public $dados_contas;
 
     public function Save()
     {
@@ -51,7 +51,7 @@ class CorrentistaModel extends Model
 
                             $conta_dao->Insert($conta_corrente_model);
 
-                            $correntista_model->dados_contas[] = $conta_corrente_model;
+                            //$correntista_model->dados_contas[] = $conta_corrente_model;
                         
                         break;
     
@@ -71,7 +71,7 @@ class CorrentistaModel extends Model
 
                             $conta_dao->Insert($conta_poupanca_model);
 
-                            $correntista_model->dados_contas[] = $conta_poupanca_model;
+                            //$correntista_model->dados_contas[] = $conta_poupanca_model;
     
                         break;
     

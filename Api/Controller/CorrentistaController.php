@@ -84,6 +84,8 @@ class CorrentistaController extends Controller
 
             parent::SendReturnAsJson($model->rows);
 
+            var_dump($model);
+
         }
 
         catch(Exception $ex)
@@ -136,7 +138,7 @@ class CorrentistaController extends Controller
 
             $model->LoginValidation($usuario, $senha);
 
-            parent::SendReturnAsJson($model->rows);
+            parent::SendReturnAsJson($model->rows[0]);
 
         }
 
