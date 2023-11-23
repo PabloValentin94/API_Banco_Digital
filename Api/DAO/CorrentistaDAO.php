@@ -34,15 +34,13 @@ class CorrentistaDAO extends DAO
 
         $stmt->bindValue(6, $model->ativo);
 
-        $stmt->execute();
-
-        $model->id = $this->conexao->lastInsertId();
+        (!$stmt->execute()) ? $model->id = null : $model-> id = $this->conexao->lastInsertId();
 
         return $model;
 
     }
 
-    public function Update(CorrentistaModel $model) : bool
+    public function Update(CorrentistaModel $model) : ?CorrentistaModel
     {
 
         $sql = "UPDATE Correntista SET nome = ?, cpf = ?, email = ?, data_nascimento = ?, " .
@@ -64,20 +62,33 @@ class CorrentistaDAO extends DAO
 
         $stmt->bindValue(7, $model->id);
 
+        (!$stmt->execute()) ? $model->id = null : $model-> id = $this->conexao->lastInsertId();
+
+        return $model;
+
+    }
+
+    public function Reactivate(int $id) : bool
+    {
+
+        $sql = "UPDATE Correntista SET ativo = 1 WHERE id = ?";
+
+        $stmt = $this->conexao->prepare($sql);
+
+        $stmt->bindValue(1, $id);
+
         return $stmt->execute();
 
     }
 
-    public function Disable(int $id, bool $ativamento) : bool
+    public function Deactivate(int $id) : bool
     {
 
-        $sql = "UPDATE Correntista SET ativo = ? WHERE id = ?";
+        $sql = "UPDATE Correntista SET ativo = 0 WHERE id = ?";
 
         $stmt = $this->conexao->prepare($sql);
 
-        $stmt->bindValue(1, $ativamento);
-
-        $stmt->bindValue(2, $id);
+        $stmt->bindValue(1, $id);
 
         return $stmt->execute();
 

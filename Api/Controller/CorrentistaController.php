@@ -19,12 +19,7 @@ class CorrentistaController extends Controller
 
             $model = new CorrentistaModel();
 
-            if($objeto_json->id != null)
-            {
-
-                $model->id = $objeto_json->id;
-
-            }
+            $model->id = $objeto_json->id;
 
             $model->nome = $objeto_json->nome;
 
@@ -39,6 +34,27 @@ class CorrentistaController extends Controller
             $model->ativo = $objeto_json->ativo;
 
             parent::SendReturnAsJson($model->Save());
+
+        }
+
+        catch(Exception $ex)
+        {
+
+            parent::SendExceptionAsJson($ex);
+
+        }
+
+    }
+
+    public static function EnableAsyncCorrentista() : void
+    {
+
+        try
+        {
+
+            $objeto_json = json_decode(file_get_contents("php://input"));
+
+            (new CorrentistaModel())->Disable((int) $objeto_json->id_correntista, (bool) $objeto_json->ativo);
 
         }
 
@@ -83,8 +99,6 @@ class CorrentistaController extends Controller
             $model->GetRows();
 
             parent::SendReturnAsJson($model->rows);
-
-            var_dump($model);
 
         }
 

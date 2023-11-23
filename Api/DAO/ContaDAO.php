@@ -62,16 +62,27 @@ class ContaDAO extends DAO
 
     }
 
-    public function Disable(int $id, bool $ativamento) : bool
+    public function Reactivate(int $id) : bool
     {
 
-        $sql = "UPDATE Conta SET ativa = ? WHERE id = ?";
+        $sql = "UPDATE Conta SET ativo = 1 WHERE id = ?";
 
         $stmt = $this->conexao->prepare($sql);
 
-        $stmt->bindValue(1, $ativamento);
+        $stmt->bindValue(1, $id);
 
-        $stmt->bindValue(2, $id);
+        return $stmt->execute();
+
+    }
+
+    public function Deactivate(int $id) : bool
+    {
+
+        $sql = "UPDATE Conta SET ativo = 0 WHERE id = ?";
+
+        $stmt = $this->conexao->prepare($sql);
+
+        $stmt->bindValue(1, $id);
 
         return $stmt->execute();
 

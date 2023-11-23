@@ -3,9 +3,9 @@
 namespace Api\Model;
 
 use Api\DAO\CorrentistaDAO;
-use Api\DAO\ContaDAO;
 
 use Api\Model\ContaModel;
+use Api\DAO\ContaDAO;
 
 class CorrentistaModel extends Model
 {
@@ -24,7 +24,7 @@ class CorrentistaModel extends Model
 
             $correntista_model = $correntista_dao->Insert($this);
 
-            if($correntista_model->id != null)
+            if($correntista_model->id == 0)
             {
 
                 $conta_dao = new ContaDAO();
@@ -94,10 +94,17 @@ class CorrentistaModel extends Model
 
     }
 
-    public function Disable(int $id, bool $ativamento)
+    public function Enable(int $id)
     {
 
-        (new CorrentistaDAO())->Disable($id, $ativamento);
+        (new CorrentistaDAO())->Reactivate($id);
+
+    }
+
+    public function Disable(int $id)
+    {
+
+        (new CorrentistaDAO())->Deactivate($id);
 
     }
 
